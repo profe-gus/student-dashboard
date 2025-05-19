@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { SidebarItemMenu } from './SidebarItemMenu';
-import { IoBrowsersOutline, IoCalculatorOutline } from 'react-icons/io5';
+import { IoBookOutline, IoBrowsersOutline, IoCalculatorOutline } from 'react-icons/io5';
 
 const menuItems = [
     {
@@ -14,6 +14,12 @@ const menuItems = [
         icon:<IoCalculatorOutline/>,
         title:'Counter',
         subTitle:'Counter Page'
+    },
+    {
+        path:'/dashboard/students',
+        icon:<IoBookOutline/>,
+        title:'Students',
+        subTitle:'Student Page'
     }
 ]
 
