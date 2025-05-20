@@ -5,6 +5,8 @@ export interface StudentsResponse {
     email:    string;
     gender:   string;
     nickname: string;
+    subjects: string[];
+    grades: string[];
 }
 
 

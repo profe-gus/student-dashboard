@@ -2,12 +2,40 @@
 
 import { IoEyeOutline, IoPencilOutline, IoTrashBinOutline } from "react-icons/io5"
 import { StudentsResponse } from "../students/interfaces/students-response.interface"
+import { useDispatch } from "react-redux"
+import { AppDispatch } from "../store"
+import { useEffect } from "react"
+import { getStudentAction } from "../store/actions/StudentsAction"
+import { useStudentStore } from "../students/_store/studentStore"
 
-interface Props{
-	students: StudentsResponse[]
-}
+// interface Props{
+// 	student: StudentsResponse[]
+// }
 
-export const StudentTable = ({students}: Props) => {
+// export const StudentTable = ({student}: Props) => {
+export const StudentTable = () => {
+
+	//Redux
+	const dispatch = useDispatch<AppDispatch>();
+
+	//Zustand
+	const {students, getStudents} = useStudentStore();
+
+
+
+	//Zustand
+	useEffect(()=>{
+		getStudents(20, 0);
+	},[getStudents])
+
+
+
+	//Redux
+	useEffect(()=>{
+		dispatch(getStudentAction(10, 0));
+	},[dispatch])
+
+
   return (
 	<>
     <div className="flex items-center justify-center min-h-screen">
@@ -21,6 +49,8 @@ export const StudentTable = ({students}: Props) => {
 						<th className="p-3 text-left">Email</th>
 						<th className="p-3 text-left">Género</th>
 						<th className="p-3 text-left">Nick</th>
+						<th className="p-3 text-left">Materias favoritas</th>
+						<th className="p-3 text-left">Notas</th>
 
 					</tr>
 				</thead>
@@ -30,7 +60,7 @@ export const StudentTable = ({students}: Props) => {
 								<tr className="bg-gray-800" key={student.id}>
 						
 						<td className="p-3">
-							<div className="flex align-items-center">
+							<div className="flex flex-row items-center">
 								<img className="rounded-full h-12 w-12  object-cover" src="https://images.unsplash.com/photo-1613588718956-c2e80305bf61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80" alt="unsplash image"/>
 								<div className="ml-3">
 									<div className="">{student.name}</div>
@@ -49,7 +79,11 @@ export const StudentTable = ({students}: Props) => {
 						<td className="p-3 font-bold">
 							{student.nickname}
 						</td>
-						<td className="p-3 flex flex-row">
+						<td className="p-3 font-bold">
+							{(student.subjects).join(', ')}
+						</td>
+						<td className="p-3">
+							<div className="flex flex-row items-center">
 							<a href="#" className="text-gray-400 hover:text-gray-100 mr-2">
 								<IoEyeOutline/>
 							</a>
@@ -59,6 +93,7 @@ export const StudentTable = ({students}: Props) => {
 							<a href="#" className="text-gray-400 hover:text-gray-100  ml-2">
                             <IoTrashBinOutline/>
 							</a>
+							</div>
 						</td>
 
 					</tr>
